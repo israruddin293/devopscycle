@@ -37,6 +37,7 @@ Create image pull secret:
 # Generate GitHub token first:
 # GitHub → Settings → Developer settings → Personal access tokens → Generate new token
 # Select scope: read:packages
+Use Below cmds: to set secrets
 
 kubectl create secret docker-registry ghcr-secret \
   --docker-server=ghcr.io \
