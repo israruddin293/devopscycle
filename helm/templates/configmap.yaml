@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: microservices
+data:
+  REDIS_HOST: "{{ .Values.redis.name }}"
+  REDIS_PORT: "{{ .Values.redis.service.port }}"
+  BACKEND_URL: "http://{{ .Values.backend.name }}:{{ .Values.backend.service.port }}"
+  ENVIRONMENT: "{{ .Values.configMap.environment }}"

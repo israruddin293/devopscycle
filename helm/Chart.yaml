@@ -1,0 +1,14 @@
+apiVersion: v2
+name: microservices
+description: Production-ready microservices with Kubernetes
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - microservices
+  - kubernetes
+  - flask
+  - redis
+maintainers:
+  - name: DevOps Team
+    email: devops@example.com

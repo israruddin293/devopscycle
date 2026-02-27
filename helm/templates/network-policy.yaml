@@ -1,0 +1,96 @@
+{{- if .Values.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: backend-network-policy
+  namespace: {{ .Values.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.backend.name }}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: {{ .Values.frontend.name }}
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: {{ .Values.backend.service.port }}
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: {{ .Values.redis.name }}
+    ports:
+    - protocol: TCP
+      port: {{ .Values.redis.service.port }}
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis-network-policy
+  namespace: {{ .Values.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.redis.name }}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: {{ .Values.backend.name }}
+    ports:
+    - protocol: TCP
+      port: {{ .Values.redis.service.port }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-network-policy
+  namespace: {{ .Values.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.frontend.name }}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: {{ .Values.frontend.service.port }}
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: {{ .Values.backend.name }}
+    ports:
+    - protocol: TCP
+      port: {{ .Values.backend.service.port }}
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+{{- end }}

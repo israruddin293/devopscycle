@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .healthy {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .unhealthy {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Microservices Dashboard</h1>
+        <p>Production-ready microservices with Kubernetes</p>
+        
+        <button onclick="checkBackend()">Check Backend Status</button>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        async function checkBackend() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '<p>Checking...</p>';
+            
+            try {
+                const response = await fetch('/backend-status');
+                const data = await response.json();
+                
+                const statusClass = data.backend_status === 'healthy' ? 'healthy' : 'unhealthy';
+                statusDiv.innerHTML = `
+                    <div class="status ${statusClass}">
+                        <h3>Backend Status: ${data.backend_status}</h3>
+                        <pre>${JSON.stringify(data.backend_data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <div class="status unhealthy">
+                        <h3>Error: ${error.message}</h3>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
