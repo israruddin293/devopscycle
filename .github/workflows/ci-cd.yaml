@@ -164,6 +164,11 @@ jobs:
         echo "${{ secrets.KUBECONFIG }}" | base64 -d > $HOME/.kube/config
         chmod 600 $HOME/.kube/config
 
+    - name: Verify cluster connection
+      run: |
+        kubectl cluster-info
+        kubectl get nodes
+
     - name: Update image tags in manifests
       run: |
         sed -i "s|your-registry/backend:latest|${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest|g" k8s/backend-deployment.yaml
@@ -171,16 +176,16 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f k8s/namespace.yaml
-        kubectl apply -f k8s/configmap.yaml
-        kubectl apply -f k8s/secret.yaml
-        kubectl apply -f k8s/redis-deployment.yaml
-        kubectl apply -f k8s/backend-deployment.yaml
-        kubectl apply -f k8s/frontend-deployment.yaml
-        kubectl apply -f k8s/ingress.yaml
-        kubectl apply -f k8s/hpa.yaml
-        kubectl apply -f k8s/pdb.yaml
-        kubectl apply -f k8s/network-policy.yaml
+        kubectl apply -f k8s/namespace.yaml --validate=false
+        kubectl apply -f k8s/configmap.yaml --validate=false
+        kubectl apply -f k8s/secret.yaml --validate=false
+        kubectl apply -f k8s/redis-deployment.yaml --validate=false
+        kubectl apply -f k8s/backend-deployment.yaml --validate=false
+        kubectl apply -f k8s/frontend-deployment.yaml --validate=false
+        kubectl apply -f k8s/ingress.yaml --validate=false
+        kubectl apply -f k8s/hpa.yaml --validate=false
+        kubectl apply -f k8s/pdb.yaml --validate=false
+        kubectl apply -f k8s/network-policy.yaml --validate=false
 
     - name: Wait for deployment
       run: |

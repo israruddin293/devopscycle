@@ -224,8 +224,10 @@ Configure these in GitHub repository settings:
 
 ```
 GITHUB_TOKEN          # Automatically provided
-KUBECONFIG            # Base64 encoded kubeconfig file
+KUBECONFIG            # Base64 encoded kubeconfig file from your K8s cluster
 ```
+
+**For EC2 Kubernetes Setup**: See [EC2-K8S-SETUP.md](docs/EC2-K8S-SETUP.md) for complete guide.
 
 ### Generate KUBECONFIG Secret
 

@@ -157,14 +157,18 @@ project/
 ## 📚 Documentation Delivered
 
 1. ✅ **README.md** - Complete setup and usage guide
-2. ✅ **docs/QUICKSTART.md** - 5-minute quick start
-3. ✅ **docs/ARCHITECTURE.md** - System architecture
-4. ✅ **docs/DEPLOYMENT.md** - Detailed deployment guide
-5. ✅ **docs/SECURITY.md** - Security best practices
-6. ✅ **docs/CI-CD.md** - Pipeline documentation
-7. ✅ **docs/TRIVY-CONFIGURATION.md** - Security scanning setup
-8. ✅ **helm/README.md** - Helm chart usage
-9. ✅ **LICENSE** - MIT License
+2. ✅ **KUBEADM-QUICKSTART.md** - 5-minute kubeadm setup
+3. ✅ **docs/QUICKSTART.md** - General quick start
+4. ✅ **docs/KUBEADM-GITHUB-ACTIONS.md** - Detailed kubeadm guide
+5. ✅ **docs/ARCHITECTURE.md** - System architecture
+6. ✅ **docs/DEPLOYMENT.md** - Detailed deployment guide
+7. ✅ **docs/SECURITY.md** - Security best practices
+8. ✅ **docs/CI-CD.md** - Pipeline documentation
+9. ✅ **docs/TRIVY-CONFIGURATION.md** - Security scanning setup
+10. ✅ **docs/EC2-K8S-SETUP.md** - EC2 Kubernetes cluster setup
+11. ✅ **docs/GITHUB-ACTIONS-EC2.md** - GitHub Actions to EC2 deployment
+12. ✅ **helm/README.md** - Helm chart usage
+13. ✅ **LICENSE** - MIT License
 
 ## 🎯 Architecture Diagram
 
